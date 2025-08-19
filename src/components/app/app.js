@@ -24,6 +24,14 @@ class App extends Component {
     }
   }
 
+  changeSalary = (id, salary) => {
+    this.setState(({data}) => ({
+      data: data.map(item => {
+          return item.id === id ? {...item, salary} : item;
+        })
+    }))
+  }
+
   deleteItem = (id) => {
     this.setState(({data}) => {
       // const index = data.findIndex(elem => elem.id === id)
@@ -95,7 +103,8 @@ class App extends Component {
           {visibleDate.length === 0 ? <NoItems/>: <EmployeesList 
               data={visibleDate}
               onDelete={this.deleteItem}
-              onToogleProps={this.onToogleProps}/>}
+              onToogleProps={this.onToogleProps}
+              onChangeSalary={this.changeSalary}/>}
           
           <EmployeesAddForm
               onAdd={this.addItem}/>

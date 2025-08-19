@@ -1,7 +1,7 @@
 import './employees-list-item.css';
 
 const EmployeesListItem = (props) => {
-    const {name, salary, increase, rise, onDelete, onToogleProps} = props;
+    const {name, salary, increase, rise, onDelete, onToogleProps, onChangeSalary} = props;
 
     let clazz = '';
     let like = '';
@@ -12,11 +12,13 @@ const EmployeesListItem = (props) => {
     if (rise) {
         like += ' like '
     };
-
     return (
         <li className={"list-group-item d-flex justify-content-between " + clazz + like}>
             <span className="list-group-item-label " onClick={() => onToogleProps('rise')}>{name}</span>
-            <input type="text" className="list-group-item-input" defaultValue={`${salary}$`}/>
+            <input type="text" 
+                   className="list-group-item-input" 
+                   defaultValue={`${salary}$`}
+                   onChange={(e) => onChangeSalary(parseInt(e.target.value))}/>
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button" onClick={() => onToogleProps('increase')}
                     className="btn-cookie btn-sm ">
