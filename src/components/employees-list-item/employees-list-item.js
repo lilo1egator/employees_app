@@ -1,7 +1,7 @@
 import './employees-list-item.css';
 
 const EmployeesListItem = (props) => {
-    const {name, salary, increase, rise, onDelete, toogleProps} = props;
+    const {name, salary, increase, rise, onDelete, onToogleProps} = props;
 
     let clazz = '';
     let like = '';
@@ -15,10 +15,10 @@ const EmployeesListItem = (props) => {
 
     return (
         <li className={"list-group-item d-flex justify-content-between " + clazz + like}>
-            <span className="list-group-item-label " onClick={() => toogleProps('rise')}>{name}</span>
+            <span className="list-group-item-label " onClick={() => onToogleProps('rise')}>{name}</span>
             <input type="text" className="list-group-item-input" defaultValue={`${salary}$`}/>
             <div className='d-flex justify-content-center align-items-center'>
-                <button type="button" onClick={() => toogleProps('increase')}
+                <button type="button" onClick={() => onToogleProps('increase')}
                     className="btn-cookie btn-sm ">
                     <i className="fas fa-cookie"></i>
                 </button>

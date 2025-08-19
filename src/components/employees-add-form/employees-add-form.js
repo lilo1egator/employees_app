@@ -8,7 +8,11 @@ class EmployeesAddForm extends Component {
         super(props);
         this.state = {
             name: '',
-            salary: ''
+            salary: '',
+            errors: {
+                name: false,
+                salary: false
+            }
         }
     }
 
@@ -20,16 +24,28 @@ class EmployeesAddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onAdd(this.state.name, this.state.salary)
-        this.setState({
-            name: '',
-            salary: ''
-        })
+        const errors = {
+            name: this.state.name.length < 3,
+            salary: this.state.salary === '' || this.state.salary < 0
+        }
+
+        if(!errors.name && !errors.salary) {
+            this.props.onAdd(this.state.name, this.state.salary)
+            this.setState({
+                name: '',
+                salary: '',
+                errors: {
+                    name: false,
+                    salary: false
+                }
+            })
+        } else {
+            this.setState({ errors });
+        }
     }
 
     render() {
-        const {name, salary} = this.state;
-
+        const {name, salary, errors} = this.state;
         return (
             <div className="app-add-form">
                 <h3>Add a new employee</h3>
@@ -37,13 +53,13 @@ class EmployeesAddForm extends Component {
                     className="add-form d-flex"
                     onSubmit={this.onSubmit}>
                     <input type="text"
-                        className="form-control new-post-label"
+                        className={"form-control new-post-label " + (errors.name ? 'error': '')}
                         placeholder="What is his name?" 
                         name="name"
                         value={name}
                         onChange={this.addState}/>
                     <input type="number"
-                        className="form-control new-post-label"
+                        className={"form-control new-post-label "  + (errors.salary ? 'error': '')}
                         placeholder="Salary in $?" 
                         name="salary"
                         value={salary}
